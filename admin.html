@@ -1,471 +1,781 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin - SD Inpres Doridungga</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+<title>Admin - SD Inpres Doridungga</title>
 
-        body {
-            font-family: Arial, sans-serif;
-            background: #f1f5f9;
-            color: #333;
-        }
+<style>
 
-        /* LOGIN */
-        .login-container {
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
 
-        .login-box {
-            background: white;
-            width: 100%;
-            max-width: 400px;
-            padding: 35px;
-            border-radius: 15px;
-            box-shadow: 0 5px 25px rgba(0,0,0,0.15);
-            text-align: center;
-        }
+body{
+    font-family:Arial,sans-serif;
+    background:#f1f5f9;
+    color:#333;
+}
 
-        .login-box h1 {
-            color: #075985;
-            margin-bottom: 10px;
-        }
+/* LOGIN */
 
-        .login-box p {
-            margin-bottom: 25px;
-            color: #666;
-        }
+.login-container{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:20px;
+}
 
-        .login-box input {
-            width: 100%;
-            padding: 13px;
-            margin-bottom: 15px;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            font-size: 16px;
-        }
+.login-box{
+    background:white;
+    width:100%;
+    max-width:400px;
+    padding:35px;
+    border-radius:15px;
+    box-shadow:0 5px 25px rgba(0,0,0,.15);
+    text-align:center;
+}
 
-        .login-box button {
-            width: 100%;
-            padding: 13px;
-            border: none;
-            border-radius: 8px;
-            background: #075985;
-            color: white;
-            font-size: 16px;
-            cursor: pointer;
-        }
+.login-box h1{
+    color:#075985;
+    margin-bottom:10px;
+}
 
-        .login-box button:hover {
-            background: #0369a1;
-        }
+.login-box p{
+    margin-bottom:25px;
+    color:#666;
+}
 
-        #error {
-            color: red;
-            margin-top: 15px;
-        }
+.login-box input{
+    width:100%;
+    padding:13px;
+    margin-bottom:15px;
+    border:1px solid #ccc;
+    border-radius:8px;
+    font-size:16px;
+}
 
-        /* ADMIN */
-        #adminPanel {
-            display: none;
-        }
+.login-box button{
+    width:100%;
+    padding:13px;
+    border:none;
+    border-radius:8px;
+    background:#075985;
+    color:white;
+    font-size:16px;
+    cursor:pointer;
+}
 
-        header {
-            background: #075985;
-            color: white;
-            padding: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+.login-box button:hover{
+    background:#0369a1;
+}
 
-        header h1 {
-            font-size: 22px;
-        }
+#error{
+    color:red;
+    margin-top:15px;
+}
 
-        .logout {
-            background: #dc2626;
-            color: white;
-            border: none;
-            padding: 10px 15px;
-            border-radius: 7px;
-            cursor: pointer;
-        }
+/* ADMIN */
 
-        .container {
-            max-width: 1100px;
-            margin: 30px auto;
-            padding: 0 20px;
-        }
+#adminPanel{
+    display:none;
+}
 
-        .welcome {
-            background: white;
-            padding: 25px;
-            border-radius: 12px;
-            margin-bottom: 25px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-        }
+header{
+    background:#075985;
+    color:white;
+    padding:20px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
 
-        .menu-admin {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 20px;
-        }
+header h1{
+    font-size:22px;
+}
 
-        .card {
-            background: white;
-            padding: 25px;
-            border-radius: 12px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-            transition: 0.2s;
-        }
+.logout{
+    background:#dc2626;
+    color:white;
+    border:none;
+    padding:10px 15px;
+    border-radius:7px;
+    cursor:pointer;
+}
 
-        .card:hover {
-            transform: translateY(-3px);
-        }
+.container{
+    max-width:1100px;
+    margin:30px auto;
+    padding:0 20px;
+}
 
-        .card h2 {
-            color: #075985;
-            margin-bottom: 10px;
-        }
+.welcome{
+    background:white;
+    padding:25px;
+    border-radius:12px;
+    margin-bottom:25px;
+    box-shadow:0 2px 10px rgba(0,0,0,.08);
+}
 
-        .card p {
-            color: #666;
-            margin-bottom: 15px;
-        }
+.menu-admin{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:20px;
+}
 
-        .card button {
-            background: #075985;
-            color: white;
-            border: none;
-            padding: 10px 15px;
-            border-radius: 7px;
-            cursor: pointer;
-        }
+.card{
+    background:white;
+    padding:25px;
+    border-radius:12px;
+    box-shadow:0 2px 10px rgba(0,0,0,.08);
+}
 
-        footer {
-            text-align: center;
-            padding: 30px;
-            color: #777;
-        }
-    </style>
+.card h2{
+    color:#075985;
+    margin-bottom:10px;
+}
+
+.card p{
+    color:#666;
+    margin-bottom:15px;
+}
+
+.card button{
+    background:#075985;
+    color:white;
+    border:none;
+    padding:10px 15px;
+    border-radius:7px;
+    cursor:pointer;
+}
+
+.card button:hover{
+    background:#0369a1;
+}
+
+/* FORM */
+
+#editor{
+    display:none;
+    background:white;
+    margin-top:25px;
+    padding:30px;
+    border-radius:12px;
+    box-shadow:0 2px 10px rgba(0,0,0,.08);
+}
+
+#editor h2{
+    color:#075985;
+    margin-bottom:20px;
+}
+
+.form-group{
+    margin-bottom:18px;
+}
+
+.form-group label{
+    display:block;
+    font-weight:bold;
+    margin-bottom:7px;
+}
+
+.form-group input,
+.form-group textarea{
+    width:100%;
+    padding:12px;
+    border:1px solid #ccc;
+    border-radius:7px;
+    font-size:16px;
+}
+
+.form-group textarea{
+    min-height:120px;
+    resize:vertical;
+}
+
+.btn-simpan{
+    background:#16a34a;
+    color:white;
+    border:none;
+    padding:12px 20px;
+    border-radius:7px;
+    cursor:pointer;
+    font-size:16px;
+}
+
+.btn-batal{
+    background:#64748b;
+    color:white;
+    border:none;
+    padding:12px 20px;
+    border-radius:7px;
+    cursor:pointer;
+    font-size:16px;
+    margin-left:8px;
+}
+
+#pesan{
+    margin-top:15px;
+    font-weight:bold;
+}
+
+footer{
+    text-align:center;
+    padding:30px;
+    color:#777;
+}
+
+</style>
 </head>
 
 <body>
 
-<!-- ================= LOGIN ================= -->
+<!-- LOGIN -->
 
 <div class="login-container" id="loginPage">
 
-    <div class="login-box">
+<div class="login-box">
 
-        <h1>🔐 ADMIN</h1>
+<h1>🔐 ADMIN</h1>
 
-        <p>SD Inpres Doridungga</p>
+<p>SD Inpres Doridungga</p>
 
-        <input
-            type="text"
-            id="username"
-            placeholder="Username"
-        >
+<input
+type="text"
+id="username"
+placeholder="Username">
 
-        <input
-            type="password"
-            id="password"
-            placeholder="Password"
-        >
+<input
+type="password"
+id="password"
+placeholder="Password">
 
-        <button onclick="login()">
-            Masuk
-        </button>
+<button onclick="login()">
+Masuk
+</button>
 
-        <div id="error"></div>
+<div id="error"></div>
 
-    </div>
+</div>
 
 </div>
 
 
-<!-- ================= ADMIN PANEL ================= -->
+<!-- ADMIN PANEL -->
 
 <div id="adminPanel">
 
-    <header>
+<header>
 
-        <h1>
-            ADMIN SD INPRES DORIDUNGGA
-        </h1>
+<h1>
+ADMIN SD INPRES DORIDUNGGA
+</h1>
 
-        <button class="logout" onclick="logout()">
-            Keluar
-        </button>
+<button class="logout" onclick="logout()">
+Keluar
+</button>
 
-    </header>
-
-
-    <div class="container">
-
-        <div class="welcome">
-
-            <h2>
-                Selamat Datang di Panel Admin
-            </h2>
-
-            <p>
-                Silakan pilih menu yang ingin dikelola.
-            </p>
-
-        </div>
+</header>
 
 
-        <div class="menu-admin">
+<div class="container">
 
+<div class="welcome">
 
-            <!-- PROFIL -->
+<h2>
+Selamat Datang di Panel Admin
+</h2>
 
-            <div class="card">
-
-                <h2>🏫 Profil Sekolah</h2>
-
-                <p>
-                    Mengelola informasi dan profil
-                    SD Inpres Doridungga.
-                </p>
-
-                <button onclick="profilSekolah()">
-                    Kelola Profil
-                </button>
-
-            </div>
-
-
-            <!-- KEPALA SEKOLAH -->
-
-            <div class="card">
-
-                <h2>👨‍🏫 Kepala Sekolah</h2>
-
-                <p>
-                    Mengelola nama dan informasi
-                    kepala sekolah.
-                </p>
-
-                <button onclick="kepalaSekolah()">
-                    Kelola Kepala Sekolah
-                </button>
-
-            </div>
-
-
-            <!-- GURU -->
-
-            <div class="card">
-
-                <h2>👩‍🏫 Guru</h2>
-
-                <p>
-                    Mengelola data guru dan
-                    tenaga kependidikan.
-                </p>
-
-                <button onclick="guru()">
-                    Kelola Guru
-                </button>
-
-            </div>
-
-
-            <!-- BERITA -->
-
-            <div class="card">
-
-                <h2>📰 Berita</h2>
-
-                <p>
-                    Menambah dan mengelola berita
-                    kegiatan sekolah.
-                </p>
-
-                <button onclick="berita()">
-                    Kelola Berita
-                </button>
-
-            </div>
-
-
-            <!-- GALERI -->
-
-            <div class="card">
-
-                <h2>🖼️ Galeri</h2>
-
-                <p>
-                    Mengelola foto kegiatan
-                    sekolah.
-                </p>
-
-                <button onclick="galeri()">
-                    Kelola Galeri
-                </button>
-
-            </div>
-
-
-            <!-- PENGUMUMAN -->
-
-            <div class="card">
-
-                <h2>📢 Pengumuman</h2>
-
-                <p>
-                    Mengelola informasi dan
-                    pengumuman sekolah.
-                </p>
-
-                <button onclick="pengumuman()">
-                    Kelola Pengumuman
-                </button>
-
-            </div>
-
-
-        </div>
-
-    </div>
-
-
-    <footer>
-
-        © 2026 SD Inpres Doridungga
-
-    </footer>
+<p>
+Kelola informasi website SD Inpres Doridungga melalui menu berikut.
+</p>
 
 </div>
 
 
-<!-- ================= JAVASCRIPT ================= -->
+<div class="menu-admin">
+
+<!-- PROFIL -->
+
+<div class="card">
+
+<h2>🏫 Profil Sekolah</h2>
+
+<p>
+Mengubah informasi profil sekolah.
+</p>
+
+<button onclick="bukaProfil()">
+Kelola Profil
+</button>
+
+</div>
+
+
+<!-- KEPALA SEKOLAH -->
+
+<div class="card">
+
+<h2>👨‍🏫 Kepala Sekolah</h2>
+
+<p>
+Mengubah nama dan informasi kepala sekolah.
+</p>
+
+<button onclick="bukaKepalaSekolah()">
+Kelola Kepala Sekolah
+</button>
+
+</div>
+
+
+<!-- GURU -->
+
+<div class="card">
+
+<h2>👩‍🏫 Guru</h2>
+
+<p>
+Mengelola data guru.
+</p>
+
+<button onclick="pesanBelumTersedia('Guru')">
+Kelola Guru
+</button>
+
+</div>
+
+
+<!-- BERITA -->
+
+<div class="card">
+
+<h2>📰 Berita</h2>
+
+<p>
+Menambah dan mengelola berita sekolah.
+</p>
+
+<button onclick="pesanBelumTersedia('Berita')">
+Kelola Berita
+</button>
+
+</div>
+
+
+<!-- GALERI -->
+
+<div class="card">
+
+<h2>🖼️ Galeri</h2>
+
+<p>
+Mengelola foto kegiatan sekolah.
+</p>
+
+<button onclick="pesanBelumTersedia('Galeri')">
+Kelola Galeri
+</button>
+
+</div>
+
+
+<!-- PENGUMUMAN -->
+
+<div class="card">
+
+<h2>📢 Pengumuman</h2>
+
+<p>
+Mengelola pengumuman sekolah.
+</p>
+
+<button onclick="pesanBelumTersedia('Pengumuman')">
+Kelola Pengumuman
+</button>
+
+</div>
+
+</div>
+
+
+<!-- EDITOR -->
+
+<div id="editor">
+
+<h2 id="judulEditor">
+Edit Profil
+</h2>
+
+
+<!-- FORM PROFIL -->
+
+<div id="formProfil">
+
+<div class="form-group">
+
+<label>Nama Sekolah</label>
+
+<input
+type="text"
+id="namaSekolah">
+
+</div>
+
+
+<div class="form-group">
+
+<label>Alamat Sekolah</label>
+
+<input
+type="text"
+id="alamatSekolah">
+
+</div>
+
+
+<div class="form-group">
+
+<label>Deskripsi Sekolah</label>
+
+<textarea
+id="deskripsiSekolah"></textarea>
+
+</div>
+
+
+<div class="form-group">
+
+<label>Visi Sekolah</label>
+
+<textarea
+id="visiSekolah"></textarea>
+
+</div>
+
+
+<div class="form-group">
+
+<label>Misi Sekolah</label>
+
+<textarea
+id="misiSekolah"></textarea>
+
+</div>
+
+</div>
+
+
+<!-- FORM KEPALA SEKOLAH -->
+
+<div id="formKepala" style="display:none;">
+
+<div class="form-group">
+
+<label>Nama Kepala Sekolah</label>
+
+<input
+type="text"
+id="namaKepala"
+placeholder="Contoh: Mutlak, S.Pd.">
+
+</div>
+
+
+<div class="form-group">
+
+<label>Jabatan</label>
+
+<input
+type="text"
+id="jabatanKepala"
+value="Kepala Sekolah">
+
+</div>
+
+
+<div class="form-group">
+
+<label>Deskripsi</label>
+
+<textarea
+id="deskripsiKepala"
+placeholder="Informasi singkat kepala sekolah"></textarea>
+
+</div>
+
+</div>
+
+
+<button
+class="btn-simpan"
+onclick="simpanData()">
+
+💾 Simpan Perubahan
+
+</button>
+
+<button
+class="btn-batal"
+onclick="tutupEditor()">
+
+Kembali
+
+</button>
+
+<div id="pesan"></div>
+
+</div>
+
+</div>
+
+
+<footer>
+
+© 2026 SD Inpres Doridungga
+
+</footer>
+
+</div>
+
 
 <script>
 
-function login() {
+/* LOGIN */
 
-    const username =
-        document.getElementById("username").value;
+function login(){
 
-    const password =
-        document.getElementById("password").value;
+const username =
+document.getElementById("username").value;
+
+const password =
+document.getElementById("password").value;
 
 
-    /*
-       USERNAME DAN PASSWORD SEMENTARA
+if(
+username === "admin" &&
+password === "admin123"
+){
 
-       Username : admin
-       Password : admin123
-    */
+document.getElementById("loginPage")
+.style.display="none";
 
-    if (
-        username === "admin" &&
-        password === "admin123"
-    ) {
+document.getElementById("adminPanel")
+.style.display="block";
 
-        document.getElementById("loginPage")
-            .style.display = "none";
+}else{
 
-        document.getElementById("adminPanel")
-            .style.display = "block";
+document.getElementById("error")
+.innerHTML=
+"Username atau password salah!";
 
-    } else {
-
-        document.getElementById("error")
-            .innerHTML =
-            "Username atau password salah!";
-
-    }
+}
 
 }
 
 
-function logout() {
+/* LOGOUT */
 
-    document.getElementById("loginPage")
-        .style.display = "flex";
+function logout(){
 
-    document.getElementById("adminPanel")
-        .style.display = "none";
+document.getElementById("loginPage")
+.style.display="flex";
 
-    document.getElementById("username").value = "";
-
-    document.getElementById("password").value = "";
+document.getElementById("adminPanel")
+.style.display="none";
 
 }
 
 
-/* MENU ADMIN */
+/* PROFIL */
 
-function profilSekolah() {
+function bukaProfil(){
 
-    alert(
-        "Menu Profil Sekolah akan kita buat pada tahap berikutnya."
-    );
+document.getElementById("editor")
+.style.display="block";
+
+document.getElementById("formProfil")
+.style.display="block";
+
+document.getElementById("formKepala")
+.style.display="none";
+
+document.getElementById("judulEditor")
+.innerText=
+"🏫 Edit Profil Sekolah";
+
+
+/* Ambil data tersimpan */
+
+document.getElementById("namaSekolah")
+.value =
+localStorage.getItem("namaSekolah")
+||
+"SD Inpres Doridungga";
+
+document.getElementById("alamatSekolah")
+.value =
+localStorage.getItem("alamatSekolah")
+||
+"Kecamatan Donggo, Kabupaten Bima, Provinsi Nusa Tenggara Barat";
+
+document.getElementById("deskripsiSekolah")
+.value =
+localStorage.getItem("deskripsiSekolah")
+||
+"SD Inpres Doridungga merupakan sekolah dasar yang berada di Kecamatan Donggo, Kabupaten Bima, Provinsi Nusa Tenggara Barat.";
+
+document.getElementById("visiSekolah")
+.value =
+localStorage.getItem("visiSekolah")
+||
+"Terwujudnya peserta didik yang berkarakter, berprestasi, mandiri, dan berakhlak mulia.";
+
+document.getElementById("misiSekolah")
+.value =
+localStorage.getItem("misiSekolah")
+||
+"Menyelenggarakan pendidikan yang berkualitas, membangun karakter peserta didik, dan meningkatkan potensi setiap siswa.";
 
 }
 
 
-function kepalaSekolah() {
+/* KEPALA SEKOLAH */
 
-    alert(
-        "Menu Kepala Sekolah akan kita buat pada tahap berikutnya."
-    );
+function bukaKepalaSekolah(){
+
+document.getElementById("editor")
+.style.display="block";
+
+document.getElementById("formProfil")
+.style.display="none";
+
+document.getElementById("formKepala")
+.style.display="block";
+
+document.getElementById("judulEditor")
+.innerText=
+"👨‍🏫 Edit Kepala Sekolah";
+
+
+document.getElementById("namaKepala")
+.value =
+localStorage.getItem("namaKepala")
+||
+"Mutlak, S.Pd.";
+
+document.getElementById("jabatanKepala")
+.value =
+localStorage.getItem("jabatanKepala")
+||
+"Kepala Sekolah";
+
+document.getElementById("deskripsiKepala")
+.value =
+localStorage.getItem("deskripsiKepala")
+||
+"Kepala SD Inpres Doridungga";
 
 }
 
 
-function guru() {
+/* SIMPAN */
 
-    alert(
-        "Menu Guru akan kita buat pada tahap berikutnya."
-    );
+function simpanData(){
+
+/* PROFIL */
+
+if(
+document.getElementById("formProfil")
+.style.display !== "none"
+){
+
+localStorage.setItem(
+"namaSekolah",
+document.getElementById("namaSekolah").value
+);
+
+localStorage.setItem(
+"alamatSekolah",
+document.getElementById("alamatSekolah").value
+);
+
+localStorage.setItem(
+"deskripsiSekolah",
+document.getElementById("deskripsiSekolah").value
+);
+
+localStorage.setItem(
+"visiSekolah",
+document.getElementById("visiSekolah").value
+);
+
+localStorage.setItem(
+"misiSekolah",
+document.getElementById("misiSekolah").value
+);
 
 }
 
 
-function berita() {
+/* KEPALA SEKOLAH */
 
-    alert(
-        "Menu Berita akan kita buat pada tahap berikutnya."
-    );
+else{
+
+localStorage.setItem(
+"namaKepala",
+document.getElementById("namaKepala").value
+);
+
+localStorage.setItem(
+"jabatanKepala",
+document.getElementById("jabatanKepala").value
+);
+
+localStorage.setItem(
+"deskripsiKepala",
+document.getElementById("deskripsiKepala").value
+);
 
 }
 
 
-function galeri() {
+document.getElementById("pesan")
+.innerHTML=
+"✅ Perubahan berhasil disimpan di browser ini.";
 
-    alert(
-        "Menu Galeri akan kita buat pada tahap berikutnya."
-    );
+document.getElementById("pesan")
+.style.color="green";
 
 }
 
 
-function pengumuman() {
+/* TUTUP EDITOR */
 
-    alert(
-        "Menu Pengumuman akan kita buat pada tahap berikutnya."
-    );
+function tutupEditor(){
+
+document.getElementById("editor")
+.style.display="none";
+
+}
+
+
+/* MENU YANG BELUM DIBUAT */
+
+function pesanBelumTersedia(nama){
+
+alert(
+"Fitur "+nama+
+" akan kita buat pada tahap berikutnya."
+);
 
 }
 
 </script>
 
 </body>
+</html>
