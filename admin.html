@@ -352,6 +352,7 @@ Kelola Guru
 </div>
 
 
+
 <!-- BERITA -->
 
 <div class="card">
@@ -1024,7 +1025,20 @@ function hapusGuru(index){
     tampilkanGuru();
 
 }
+<script>
 </script>
+    function bukaGuru(){
+
+    document.getElementById("editor").style.display="block";
+
+    document.getElementById("formProfil").style.display="none";
+
+    document.getElementById("formKepala").style.display="none";
+
+    document.getElementById("judulEditor").innerText=
+    "👩‍🏫 Kelola Data Guru";
+
+    alert("Menu Guru berhasil dibuka!");
 
 </body>
 </html>
