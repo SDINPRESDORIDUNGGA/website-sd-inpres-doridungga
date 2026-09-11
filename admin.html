@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - SD Inpres Doridungga</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f1f5f9;
+            color: #333;
+        }
+
+        /* LOGIN */
+        .login-container {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .login-box {
+            background: white;
+            width: 100%;
+            max-width: 400px;
+            padding: 35px;
+            border-radius: 15px;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.15);
+            text-align: center;
+        }
+
+        .login-box h1 {
+            color: #075985;
+            margin-bottom: 10px;
+        }
+
+        .login-box p {
+            margin-bottom: 25px;
+            color: #666;
+        }
+
+        .login-box input {
+            width: 100%;
+            padding: 13px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+
+        .login-box button {
+            width: 100%;
+            padding: 13px;
+            border: none;
+            border-radius: 8px;
+            background: #075985;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .login-box button:hover {
+            background: #0369a1;
+        }
+
+        #error {
+            color: red;
+            margin-top: 15px;
+        }
+
+        /* ADMIN */
+        #adminPanel {
+            display: none;
+        }
+
+        header {
+            background: #075985;
+            color: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h1 {
+            font-size: 22px;
+        }
+
+        .logout {
+            background: #dc2626;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 7px;
+            cursor: pointer;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .welcome {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        }
+
+        .menu-admin {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            transition: 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
+        }
+
+        .card h2 {
+            color: #075985;
+            margin-bottom: 10px;
+        }
+
+        .card p {
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        .card button {
+            background: #075985;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 7px;
+            cursor: pointer;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: #777;
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- ================= LOGIN ================= -->
+
+<div class="login-container" id="loginPage">
+
+    <div class="login-box">
+
+        <h1>🔐 ADMIN</h1>
+
+        <p>SD Inpres Doridungga</p>
+
+        <input
+            type="text"
+            id="username"
+            placeholder="Username"
+        >
+
+        <input
+            type="password"
+            id="password"
+            placeholder="Password"
+        >
+
+        <button onclick="login()">
+            Masuk
+        </button>
+
+        <div id="error"></div>
+
+    </div>
+
+</div>
+
+
+<!-- ================= ADMIN PANEL ================= -->
+
+<div id="adminPanel">
+
+    <header>
+
+        <h1>
+            ADMIN SD INPRES DORIDUNGGA
+        </h1>
+
+        <button class="logout" onclick="logout()">
+            Keluar
+        </button>
+
+    </header>
+
+
+    <div class="container">
+
+        <div class="welcome">
+
+            <h2>
+                Selamat Datang di Panel Admin
+            </h2>
+
+            <p>
+                Silakan pilih menu yang ingin dikelola.
+            </p>
+
+        </div>
+
+
+        <div class="menu-admin">
+
+
+            <!-- PROFIL -->
+
+            <div class="card">
+
+                <h2>🏫 Profil Sekolah</h2>
+
+                <p>
+                    Mengelola informasi dan profil
+                    SD Inpres Doridungga.
+                </p>
+
+                <button onclick="profilSekolah()">
+                    Kelola Profil
+                </button>
+
+            </div>
+
+
+            <!-- KEPALA SEKOLAH -->
+
+            <div class="card">
+
+                <h2>👨‍🏫 Kepala Sekolah</h2>
+
+                <p>
+                    Mengelola nama dan informasi
+                    kepala sekolah.
+                </p>
+
+                <button onclick="kepalaSekolah()">
+                    Kelola Kepala Sekolah
+                </button>
+
+            </div>
+
+
+            <!-- GURU -->
+
+            <div class="card">
+
+                <h2>👩‍🏫 Guru</h2>
+
+                <p>
+                    Mengelola data guru dan
+                    tenaga kependidikan.
+                </p>
+
+                <button onclick="guru()">
+                    Kelola Guru
+                </button>
+
+            </div>
+
+
+            <!-- BERITA -->
+
+            <div class="card">
+
+                <h2>📰 Berita</h2>
+
+                <p>
+                    Menambah dan mengelola berita
+                    kegiatan sekolah.
+                </p>
+
+                <button onclick="berita()">
+                    Kelola Berita
+                </button>
+
+            </div>
+
+
+            <!-- GALERI -->
+
+            <div class="card">
+
+                <h2>🖼️ Galeri</h2>
+
+                <p>
+                    Mengelola foto kegiatan
+                    sekolah.
+                </p>
+
+                <button onclick="galeri()">
+                    Kelola Galeri
+                </button>
+
+            </div>
+
+
+            <!-- PENGUMUMAN -->
+
+            <div class="card">
+
+                <h2>📢 Pengumuman</h2>
+
+                <p>
+                    Mengelola informasi dan
+                    pengumuman sekolah.
+                </p>
+
+                <button onclick="pengumuman()">
+                    Kelola Pengumuman
+                </button>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+    <footer>
+
+        © 2026 SD Inpres Doridungga
+
+    </footer>
+
+</div>
+
+
+<!-- ================= JAVASCRIPT ================= -->
+
+<script>
+
+function login() {
+
+    const username =
+        document.getElementById("username").value;
+
+    const password =
+        document.getElementById("password").value;
+
+
+    /*
+       USERNAME DAN PASSWORD SEMENTARA
+
+       Username : admin
+       Password : admin123
+    */
+
+    if (
+        username === "admin" &&
+        password === "admin123"
+    ) {
+
+        document.getElementById("loginPage")
+            .style.display = "none";
+
+        document.getElementById("adminPanel")
+            .style.display = "block";
+
+    } else {
+
+        document.getElementById("error")
+            .innerHTML =
+            "Username atau password salah!";
+
+    }
+
+}
+
+
+function logout() {
+
+    document.getElementById("loginPage")
+        .style.display = "flex";
+
+    document.getElementById("adminPanel")
+        .style.display = "none";
+
+    document.getElementById("username").value = "";
+
+    document.getElementById("password").value = "";
+
+}
+
+
+/* MENU ADMIN */
+
+function profilSekolah() {
+
+    alert(
+        "Menu Profil Sekolah akan kita buat pada tahap berikutnya."
+    );
+
+}
+
+
+function kepalaSekolah() {
+
+    alert(
+        "Menu Kepala Sekolah akan kita buat pada tahap berikutnya."
+    );
+
+}
+
+
+function guru() {
+
+    alert(
+        "Menu Guru akan kita buat pada tahap berikutnya."
+    );
+
+}
+
+
+function berita() {
+
+    alert(
+        "Menu Berita akan kita buat pada tahap berikutnya."
+    );
+
+}
+
+
+function galeri() {
+
+    alert(
+        "Menu Galeri akan kita buat pada tahap berikutnya."
+    );
+
+}
+
+
+function pengumuman() {
+
+    alert(
+        "Menu Pengumuman akan kita buat pada tahap berikutnya."
+    );
+
+}
+
+</script>
+
+</body>
