@@ -516,7 +516,53 @@ placeholder="Informasi singkat kepala sekolah"></textarea>
 <button
 class="btn-simpan"
 onclick="simpanData()">
+<!-- FORM GURU -->
 
+<div id="formGuru" style="display:none;">
+
+    <h3>👩‍🏫 Data Guru</h3>
+
+    <div class="form-group">
+        <label>Nama Guru</label>
+        <input
+            type="text"
+            id="namaGuru"
+            placeholder="Contoh: Ahmad, S.Pd.">
+    </div>
+
+    <div class="form-group">
+        <label>NIP / NUPTK</label>
+        <input
+            type="text"
+            id="nipGuru"
+            placeholder="Masukkan NIP/NUPTK">
+    </div>
+
+    <div class="form-group">
+        <label>Mata Pelajaran</label>
+        <input
+            type="text"
+            id="mapelGuru"
+            placeholder="Contoh: Bahasa Indonesia">
+    </div>
+
+    <div class="form-group">
+        <label>Jabatan</label>
+        <input
+            type="text"
+            id="jabatanGuru"
+            placeholder="Contoh: Guru Kelas VI">
+    </div>
+
+    <button
+        class="btn-simpan"
+        onclick="simpanGuru()">
+        ➕ Tambah Guru
+    </button>
+
+    <div id="daftarGuru" style="margin-top:25px;"></div>
+
+</div>
 💾 Simpan Perubahan
 
 </button>
@@ -594,7 +640,19 @@ document.getElementById("adminPanel")
 
 
 /* PROFIL */
+document.getElementById("formGuru").style.display="none"
+ function bukaProfil(){
 
+document.getElementById("editor").style.display="block";
+
+document.getElementById("formProfil").style.display="block";
+
+document.getElementById("formKepala").style.display="none";
+
+document.getElementById("formGuru").style.display="none";
+
+document.getElementById("judulEditor").innerText=
+"🏫 Edit Profil Sekolah";   
 function bukaProfil(){
 
 document.getElementById("editor")
@@ -776,7 +834,196 @@ alert(
 );
 
 }
+/* =========================
+   GURU
+========================= */
 
+function bukaGuru(){
+
+    document.getElementById("editor").style.display="block";
+
+    document.getElementById("formProfil").style.display="none";
+
+    document.getElementById("formKepala").style.display="none";
+
+    document.getElementById("formGuru").style.display="block";
+
+    document.getElementById("judulEditor").innerText=
+    "👩‍🏫 Kelola Data Guru";
+
+    tampilkanGuru();
+
+}
+
+
+/* SIMPAN GURU */
+
+function simpanGuru(){
+
+    const nama =
+    document.getElementById("namaGuru").value.trim();
+
+    const nip =
+    document.getElementById("nipGuru").value.trim();
+
+    const mapel =
+    document.getElementById("mapelGuru").value.trim();
+
+    const jabatan =
+    document.getElementById("jabatanGuru").value.trim();
+
+
+    if(nama === ""){
+
+        alert("Nama guru harus diisi.");
+
+        return;
+
+    }
+
+
+    let guru =
+    JSON.parse(
+        localStorage.getItem("dataGuru") || "[]"
+    );
+
+
+    guru.push({
+
+        nama:nama,
+
+        nip:nip,
+
+        mapel:mapel,
+
+        jabatan:jabatan
+
+    });
+
+
+    localStorage.setItem(
+        "dataGuru",
+        JSON.stringify(guru)
+    );
+
+
+    document.getElementById("namaGuru").value="";
+    document.getElementById("nipGuru").value="";
+    document.getElementById("mapelGuru").value="";
+    document.getElementById("jabatanGuru").value="";
+
+
+    tampilkanGuru();
+
+}
+
+
+/* TAMPILKAN GURU */
+
+function tampilkanGuru(){
+
+    let guru =
+    JSON.parse(
+        localStorage.getItem("dataGuru") || "[]"
+    );
+
+
+    let html="";
+
+
+    if(guru.length === 0){
+
+        html =
+        "<p>Belum ada data guru.</p>";
+
+    }else{
+
+        guru.forEach(function(item,index){
+
+            html += `
+
+            <div style="
+                background:#f8fafc;
+                border:1px solid #ddd;
+                padding:15px;
+                border-radius:10px;
+                margin-bottom:12px;
+            ">
+
+                <strong>
+                    ${index+1}. ${item.nama}
+                </strong>
+
+                <p>
+                    NIP/NUPTK: ${item.nip || "-"}
+                </p>
+
+                <p>
+                    Mata Pelajaran: ${item.mapel || "-"}
+                </p>
+
+                <p>
+                    Jabatan: ${item.jabatan || "-"}
+                </p>
+
+                <button
+                    onclick="hapusGuru(${index})"
+                    style="
+                        background:#dc2626;
+                        color:white;
+                        border:none;
+                        padding:8px 12px;
+                        border-radius:6px;
+                        cursor:pointer;
+                    ">
+                    🗑️ Hapus
+                </button>
+
+            </div>
+
+            `;
+
+        });
+
+    }
+
+
+    document.getElementById("daftarGuru").innerHTML=html;
+
+}
+
+
+/* HAPUS GURU */
+
+function hapusGuru(index){
+
+    if(
+        !confirm("Apakah Anda yakin ingin menghapus data guru ini?")
+    ){
+
+        return;
+
+    }
+
+
+    let guru =
+    JSON.parse(
+        localStorage.getItem("dataGuru") || "[]"
+    );
+
+
+    guru.splice(index,1);
+
+
+    localStorage.setItem(
+        "dataGuru",
+        JSON.stringify(guru)
+    );
+
+
+    tampilkanGuru();
+
+}
 </script>
 
 </body>
